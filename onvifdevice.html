@@ -1,0 +1,79 @@
+<!--
+  Copyright 2018, Bart Butenaers
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<script type="text/javascript">
+    RED.nodes.registerType('onvifdevice',{
+        category: 'OnVif',
+        color: '#ff758d',
+        defaults: {
+            name: {value:""},
+            deviceConfig: {value:"", type: "onvif_device_config"},
+            action: {value:"", required: false}
+        },          
+        inputs:1,
+        outputs:1,
+        icon: "fluid.png",
+        label: function() {
+            return this.name||"OnVif device";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="onvifdevice">
+    <div class="form-row">
+        <label for="node-input-deviceConfig"><i class="fa fa-cog"></i> Device</label>
+        <!-- Node-Red will replace this input element by a drop-down (with available OnVif device configurations) -->
+        <input type="text" id="node-input-deviceConfig">
+    </div>
+    <br>
+    <div class="form-row">
+        <label for="node-input-action"><i class="fa fa-wrench"></i> Action</label>
+        <select id="node-input-action">
+            <option value=""></option>
+            <option value="getInformation">Get hardware</option>
+            <option value="getProfileList">Get profiles</option>
+            <option value="getServices">Get services</option>
+            <option value="getUdpStreamUrl">Get UDP stream URL</option>           
+            <option value="getHostname">Get host name</option>
+            <option value="getDNS">Get DNS</option>
+            <option value="getNetworkInterfaces">Get network interfaces</option>
+            <option value="getNetworkProtocols">Get network protocols</option>
+            <option value="getNetworkDefaultGateway">Get network default gateway</option>
+            <option value="getSystemDateAndTime">Get system date and time</option>
+            <option value="getRelayOutputs">Get relay outputs</option>              
+            <option value="getNTP">Get NTP information</option> 
+            <option value="getDynamicDNS">Get dynamic DNS</option>
+            <option value="getCurrentProfile">Get current profile</option>
+            <option value="getCapabilities">Get capabilities</option>
+            <option value="getWsdlUrl">Get WSDL URL</option>
+            <option value="getDiscoveryMode">Get discovery mode</option>
+            <option value="getScopes">Get scopes</option>
+            <option value="reboot">Reboot</option>
+            <option value="getUsers">Get users</option>
+            <option value="getZeroConfiguration">Get zero configuration</option>
+            <option value="getServiceCapabilities">Get service capabilities</option>
+        </select>
+    </div>
+    <br>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="onvifdevice">
+    <p>A node to get extra information about an OnVif compatible IP device.</p>
+    <p><strong>Device:</strong><br/>
+    The target OnVif-compliant IP device.</p>
+    <p><strong>Action:</strong><br/>
+    The action that needs to be executed on the target device.  When no action is selected, the action should be specified in the <code>msg.action</code> field of the input message.</p>
+</script>
